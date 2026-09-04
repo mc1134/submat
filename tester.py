@@ -215,15 +215,22 @@ def run_tests(solution):
         mat = obj["mat"]
         val = obj["val"]
         start_time = time.time()
-        a = solution.submat(mat)
+        try:
+            a = solution.submat(mat)
+        except Exception as e:
+            end_time = time.time()
+            t, u = pretty_time(end_time - start_time)
+            print(f"❗ ({counter}/{len(names)}) Solution {name} ERROR (took {round(t, 3)}{u}): {e}")
+            counter += 1
+            continue
         end_time = time.time()
         res = "✔️"
-        err = ""
+        fail = ""
         try:
             assert a == val, f"\n\tExpected {val} but got {a}"
         except AssertionError as e:
             res = "❌"
-            err = e
+            fail = e
         t, u = pretty_time(end_time - start_time)
-        print(f"{res} ({counter}/{len(names)}) Solution {name}: {a}; took {round(t, 3)}{u}{err}")
+        print(f"{res} ({counter}/{len(names)}) Solution {name}: {a}; took {round(t, 3)}{u}{fail}")
         counter += 1
