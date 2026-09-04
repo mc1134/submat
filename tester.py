@@ -209,6 +209,7 @@ test_cases = {
 def run_tests(solution):
     names = list(test_cases.keys())
     names.sort()
+    counter = 1
     for name in names:
         obj = test_cases[name]
         mat = obj["mat"]
@@ -224,4 +225,5 @@ def run_tests(solution):
             res = "❌"
             err = e
         t, u = pretty_time(end_time - start_time)
-        print(f"{res} Solution {name}: {a}; took {round(t, 3)}{u}{err}")
+        print(f"{res} ({counter}/{len(names)}) Solution {name}: {a}; took {round(t, 3)}{u}{err}")
+        counter += 1
