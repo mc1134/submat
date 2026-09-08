@@ -11,6 +11,18 @@ class Solution:
 
     def dp(self, mat):
         ##### DP solution
+        # each cell of the dp matrix stores how many submats there are for mat when it is cut off
+        # at that point (e.g. dp[2][2] would store how many submats of all 1s there are up to mat[2][2])
+        # the calculation for each dp cell is:
+        # dp[x][y] = up + left - upleft + N
+        # where:
+        # up = dp[x-1][y] or the cell directly above the current one
+        # left = dp[x][y-1] or the cell directly left of the current one
+        # upleft = dp[x-1][y-1]
+        # N = number of submats of all 1s that include the current cell
+        # if processing row 1, up and upleft are 0
+        # if processing col 1, left and upleft are 0
+        # if mat[x][y] == 0, N = 0
         height = len(mat)
         if height == 0:
             return 0
@@ -44,7 +56,6 @@ class Solution:
                 if height*width < 50:
                     self.sprint("{} {} {} {}".format(up, left, upleft, N))
                 dp[h_idx][w_idx] = left + up - upleft + N
-                pass
         return dp[-1][-1]
 
     def bf(self, mat):
