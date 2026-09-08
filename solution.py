@@ -6,7 +6,8 @@ class Solution:
             print(s)
 
     def submat(self, mat:list[list[int]]) -> int:
-        return self.dp(mat) # self.bf(mat)
+        # choose self.bf or self.dp
+        return self.dp(mat)
 
     def dp(self, mat):
         ##### DP solution
@@ -17,8 +18,34 @@ class Solution:
         if width == 0:
             return 0
         dp = [[0 for _ in range(width)] for _ in range(height)]
-        self.sprint(dp)
-        return -1
+        for h_idx in range(height):
+            for w_idx in range(width):
+                # use DP
+                up, left, upleft = 0, 0, 0
+                if h_idx > 0:
+                    up = dp[h_idx-1][w_idx]
+                if w_idx > 0:
+                    left = dp[h_idx][w_idx-1]
+                if up * left > 0:
+                    upleft = dp[h_idx-1][w_idx-1]
+                # calculate the number of all-1 submats that include this 1
+                N = 0
+                if mat[h_idx][w_idx] == 1:
+                    i, lmax = h_idx, 0
+                    while i >= 0 and mat[i][w_idx] != 0:
+                        j = w_idx
+                        while j >= 0 and j >= lmax:
+                            if mat[i][j] == 1:
+                                N += 1
+                            else:
+                                lmax = j+1
+                            j -= 1
+                        i -= 1
+                if height*width < 50:
+                    self.sprint("{} {} {} {}".format(up, left, upleft, N))
+                dp[h_idx][w_idx] = left + up - upleft + N
+                pass
+        return dp[-1][-1]
 
     def bf(self, mat):
         ##### brute force solution
