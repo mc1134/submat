@@ -6,17 +6,25 @@ class Solution:
             print(s)
 
     def submat(self, mat:list[list[int]]) -> int:
+        return self.dp(mat) # self.bf(mat)
+
+    def dp(self, mat):
         ##### DP solution
-        # height = len(mat)
-        # if height == 0:
-        #     return 0
-        # width = len(mat[0])
-        # if width == 0:
-        #     return 0
-        # dp = [[0 for _ in range(width)] for _ in range(height)]
-        # print(dp)
-        # return -1
+        height = len(mat)
+        if height == 0:
+            return 0
+        width = len(mat[0])
+        if width == 0:
+            return 0
+        dp = [[0 for _ in range(width)] for _ in range(height)]
+        self.sprint(dp)
+        return -1
+
+    def bf(self, mat):
         ##### brute force solution
+        # iterate through all possible submatrix dimensions, from smallest to largest
+        # for each size, move the "sliding window" through and check if every element is a 1
+        # if it is, increment sum
         if len(mat) == 0 or len(mat[0]) == 0:
             return 0
         s = 0
