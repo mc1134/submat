@@ -66,6 +66,8 @@ class TestInst:
     def set_test_list(self, new_list) -> None:
         self.test_cases = new_list
 
+    # test_cases = property(get_test_list, set_test_list) # THIS RESULTS IN INF LOOP ON SETTING test_cases
+
     def get_algo(self):
         if self.solution:
             raise Exception("TestInst tried to get algo")
@@ -73,8 +75,8 @@ class TestInst:
 
 def make_inst(solution, test_cases, TEST_ID = "NA"):
     inst = TestInst.__new__(TestInst)
-    inst.get_test_list = MagicMock(return_value = test_cases)
-    type(inst).get_algo = PropertyMock(return_value = solution.submat)
+    inst.get_test_list = MagicMock(return_value = test_cases) # THIS LINE DOESN'T DO ANYTHING
+    type(inst).get_algo = PropertyMock(return_value = solution.submat) # THIS LINE DOESN'T DO ANYTHING
     inst.__init__(
         solution,
         test_cases,
