@@ -201,12 +201,14 @@ invalid_matrix_dims_test_cases = {
         "mat": [[1, 0, 0, 1],
                 [0, 1, 1],
                 [0, 1, 1]],
-        "val": -1
+        "val": -1,
+        "error": [KeyError, IndexError]
     },
     "X2": {
         "mat": [[1, 0, 1],
                 [0, 0, 0, 0]],
-        "val": -1
+        "val": -1,
+        "error": [KeyError, IndexError]
     }
 }
 
@@ -214,10 +216,12 @@ invalid_matrix_dims_test_cases = {
 invalid_chars_test_cases = {
     "Y1": {
         "mat": [[2, 0, 0]],
-        "val": -1
+        "val": -1,
+        "error": [ValueError]
     },
     "Y2": {
         "mat": [[0, "a"]],
-        "val": -1
+        "val": -1,
+        "error": [ValueError]
     }
 }
