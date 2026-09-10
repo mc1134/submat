@@ -1,4 +1,4 @@
-import tester as tester
+import aitester as tester
 
 class Solution:
     def sprint(self, s):
