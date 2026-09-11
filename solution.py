@@ -1,4 +1,4 @@
-import aitester as tester
+import aitester_bugged as tester
 
 class Solution:
     def sprint(self, s):
